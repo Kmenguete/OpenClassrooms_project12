@@ -7,9 +7,13 @@ from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    SALES_CONTACT = "Sales Contact"
+    SUPPORT_CONTACT = "Support Contact"
+    ROLE_CHOICES = ((SALES_CONTACT, "Sales Contact"), (SUPPORT_CONTACT, "Support Contact"))
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, verbose_name="Role", null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
