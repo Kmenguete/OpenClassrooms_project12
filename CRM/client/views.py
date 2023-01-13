@@ -1,10 +1,13 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from CRM.client.models import Client
+from CRM.client.permissions import IsSalesContact
 from CRM.client.serializers import ClientSerializer
 
 
 class ClientViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post", "put"]
     serializer_class = ClientSerializer
 
