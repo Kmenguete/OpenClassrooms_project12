@@ -1,9 +1,9 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from CRM.client.models import Client
-from CRM.client.permissions import IsSalesContact
-from CRM.client.serializers import ClientSerializer
+from .models import Client
+from .permissions import IsSalesContact
+from .serializers import ClientSerializer
 
 
 class ClientViewSet(ModelViewSet):

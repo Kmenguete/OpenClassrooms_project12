@@ -7,4 +7,3 @@ class IsSalesContact(BasePermission):
             return True
         else:
             return obj.sales_contact == request.user
-

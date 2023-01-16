@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from CRM.client.views import ClientViewSet
+import client.views
 
 router = routers.SimpleRouter()
 
-router.register('client', ClientViewSet, basename='client')
+router.register('client', client.views.ClientViewSet, basename='client')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    path('', include('rest_framework.urls')),
     path('api/', include(router.urls))
 ]
