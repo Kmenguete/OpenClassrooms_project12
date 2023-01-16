@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'client',
     'rest_framework',
     'contract',
+    'event',
 ]
 
 MIDDLEWARE = [
