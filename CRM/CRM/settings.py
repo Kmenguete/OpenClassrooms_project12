@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'authentication',
     'client',
     'rest_framework',
+    'contract',
 ]
 
 MIDDLEWARE = [
