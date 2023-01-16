@@ -13,7 +13,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, verbose_name="Role", null=True)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, verbose_name="Role", null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
