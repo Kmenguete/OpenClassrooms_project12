@@ -482,7 +482,7 @@ select[multiple] {
 /* FORM BUTTONS */
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {
-    background: var(--button-bg);
+    background: rgba(0, 0, 0, 0.75);
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
@@ -498,7 +498,7 @@ a.button {
 .button:active, input[type=submit]:active, input[type=button]:active,
 .button:focus, input[type=submit]:focus, input[type=button]:focus,
 .button:hover, input[type=submit]:hover, input[type=button]:hover {
-    background: var(--button-hover-bg);
+    background: rgba(60, 60, 60, 0.75);
 }
 
 .button[disabled], input[type=submit][disabled], input[type=button][disabled] {
@@ -670,7 +670,7 @@ td ul.errorlist + input, td ul.errorlist + select, td ul.errorlist + textarea {
 /* BREADCRUMBS */
 
 div.breadcrumbs {
-    background: var(--breadcrumbs-bg);
+    background: rgba(0, 0, 0, 0.75);;
     padding: 10px 40px;
     border: none;
     color: var(--breadcrumbs-fg);
