@@ -993,9 +993,9 @@ a.deletelink:focus, a.deletelink:hover {
     background: none;
     padding: 16px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--hairline-color);
+    border-bottom: 1px rgba(220, 220, 220, 0.6);
     font-size: 1.125rem;
-    color: var(--body-fg);
+    color: rgba(10, 10, 10, 0.6);
 }
 
 .delete-confirmation form input[type="submit"] {
