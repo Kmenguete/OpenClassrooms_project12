@@ -874,7 +874,7 @@ a.deletelink:focus, a.deletelink:hover {
     align-items: center;
     padding: 10px 40px;
     background: rgba(0, 0, 0, 0.75);
-    color: var(--header-color);
+    color: rgba(220, 220, 220, 0.6);
     overflow: hidden;
 }
 
@@ -895,11 +895,11 @@ a.deletelink:focus, a.deletelink:hover {
     margin: 0 20px 0 0;
     font-weight: 300;
     font-size: 1.5rem;
-    color: var(--header-branding-color);
+    color: rgba(220, 220, 220, 0.6);
 }
 
 #branding h1 a:link, #branding h1 a:visited {
-    color: var(--accent);
+    color: rgba(240, 240, 240, 0.6);
 }
 
 #branding h2 {
