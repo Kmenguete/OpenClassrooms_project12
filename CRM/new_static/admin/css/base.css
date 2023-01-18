@@ -73,13 +73,13 @@ body {
 /* LINKS */
 
 a:link, a:visited {
-    color: var(--link-fg);
+    color: rgba(10, 10, 10, 0.75);
     text-decoration: none;
     transition: color 0.15s, background 0.15s;
 }
 
 a:focus, a:hover {
-    color: var(--link-hover-color);
+    color: rgba(100, 100, 100, 0.75);
 }
 
 a:focus {
@@ -556,8 +556,8 @@ input[type=button][disabled].default {
     font-weight: 400;
     font-size: 0.8125rem;
     text-align: left;
-    background: var(--primary);
-    color: var(--header-link-color);
+    background: rgba(0, 0, 0, 0.75);
+    color: rgba(220, 220, 220, 0.6);
 }
 
 .module caption,
