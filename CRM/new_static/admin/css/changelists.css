@@ -206,7 +206,7 @@
 }
 
 #changelist-filter li.selected a {
-    color: var(--link-selected-fg);
+    color: var(--body-quiet-color);
 }
 
 #changelist-filter a:focus, #changelist-filter a:hover,
