@@ -673,7 +673,7 @@ div.breadcrumbs {
     background: rgba(0, 0, 0, 0.75);;
     padding: 10px 40px;
     border: none;
-    color: var(--breadcrumbs-fg);
+    color: rgba(220, 220, 220, 1.0);
     text-align: left;
 }
 
