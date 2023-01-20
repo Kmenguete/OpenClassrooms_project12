@@ -1,12 +1,12 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .models import CustomUser
 from .serializers import UserSerializer
 
 
-class UserViewSet(ModelViewSet):
+class UserViewSet(ReadOnlyModelViewSet):
 
     serializer_class = UserSerializer
 
-    def get_object(self):
-        return CustomUser.objects.filter(id=self.request.user.id)
+    def get_queryset(self):
+        return CustomUser.objects.all()
