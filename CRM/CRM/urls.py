@@ -17,15 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
+
+import authentication.views
 import client.views
 import contract.views
-import authentication.views
+import event.views
 
 router = routers.SimpleRouter()
 
-router.register('client', client.views.ClientViewSet, basename='client')
 router.register('user', authentication.views.UserViewSet, basename='user')
+router.register('client', client.views.ClientViewSet, basename='client')
 router.register('contract', contract.views.ContractViewSet, basename='contract')
+router.register('event', event.views.EventViewSet, basename='event')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
