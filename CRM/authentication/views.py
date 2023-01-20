@@ -16,7 +16,7 @@ class UserViewSet(ReadOnlyModelViewSet):
 
 class LoginAPIView(APIView):
 
-    def get(self, email):
-        user = CustomUser.objects.get(email=email)
-        serializer = UserSerializer(user)
+    def get(self):
+        user = self.request.user
+        serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
