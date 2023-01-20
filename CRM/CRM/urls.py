@@ -34,4 +34,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    path('accounts/profile/', authentication.views.LoginAPIView.as_view())
 ]
