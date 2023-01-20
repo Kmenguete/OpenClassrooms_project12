@@ -19,12 +19,15 @@ from rest_framework import routers
 
 import client.views
 
+import authentication.views
+
 router = routers.SimpleRouter()
 
 router.register('client', client.views.ClientViewSet, basename='client')
+router.register('user', authentication.views.UserViewSet, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_framework.urls')),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
 ]
