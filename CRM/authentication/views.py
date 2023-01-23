@@ -1,5 +1,5 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import viewsets
+from .authentication import MyAuthentication
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .models import CustomUser
@@ -14,9 +14,5 @@ class UserViewSet(ReadOnlyModelViewSet):
         return CustomUser.objects.all()
 
 
-class LoginAPIView(APIView):
-
-    def get(self):
-        user = self.request.user
-        serializer = UserSerializer(user, many=False)
-        return Response(serializer.data)
+class LoginViewSet(viewsets.ViewSet):
+    authentication_classes = [MyAuthentication]

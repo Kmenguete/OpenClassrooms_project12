@@ -25,6 +25,7 @@ import event.views
 
 router = routers.SimpleRouter()
 
+router.register('login', authentication.views.LoginViewSet, basename='login')
 router.register('user', authentication.views.UserViewSet, basename='user')
 router.register('client', client.views.ClientViewSet, basename='client')
 router.register('contract', contract.views.ContractViewSet, basename='contract')
@@ -34,5 +35,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('accounts/profile/', authentication.views.LoginAPIView.as_view())
 ]
