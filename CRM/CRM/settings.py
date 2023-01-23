@@ -134,8 +134,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
-DEFAULT_AUTHENTICATION_CLASSES = 'authentication.Authentication'  # custom authentication class
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'new_static')
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'authentication.authentication.MyAuthentication',
+    )
+}
