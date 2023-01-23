@@ -143,3 +143,5 @@ REST_FRAMEWORK = {
         'authentication.authentication.MyAuthentication',
     )
 }
+
+LOGIN_REDIRECT_URL = "user"
