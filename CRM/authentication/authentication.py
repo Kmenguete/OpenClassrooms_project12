@@ -1,13 +1,16 @@
-from rest_framework import authentication
+from rest_framework import authentication, exceptions
+
+from .models import CustomUser
 
 
 class MyAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        # Perform authentication here, such as checking a token in the request headers
-        # If the authentication fails, return None
-        # If the authentication succeeds, return a tuple of (user, token)
-        pass
-
-    def authenticate_header(self, request):
-        # Return the string to be used as the value of the `WWW-Authenticate` header
-        pass
+        email = request.META.get('email')
+        password = request.META.get('password')
+        if not email and password:
+            return None
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise exceptions.AuthenticationFailed('No such user')
+        return user, None
