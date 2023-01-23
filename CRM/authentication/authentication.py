@@ -13,4 +13,4 @@ class MyAuthentication(authentication.BaseAuthentication):
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
             raise exceptions.AuthenticationFailed('No such user')
-        return user, None
+        return (user, None)
