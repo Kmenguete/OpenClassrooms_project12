@@ -4,7 +4,7 @@ from .models import CustomUser
 
 
 class MyAuthentication(authentication.BaseAuthentication):
-    def authenticate(self, request):
+    def authenticate(self, request, **kwargs):
         email = request.META.get('email', None)
         password = request.META.get('password', None)
         try:

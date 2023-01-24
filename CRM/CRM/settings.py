@@ -140,6 +140,7 @@ STATICFILES_DIRS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        "rest_framework.authentication.SessionAuthentication",
         'authentication.authentication.MyAuthentication',
     )
 }
