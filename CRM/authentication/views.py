@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.views import LogoutView
 from django.shortcuts import redirect
 from rest_framework import viewsets
@@ -24,4 +23,4 @@ class LoginViewSet(viewsets.ViewSet):
 class LogoutViewSet(viewsets.ViewSet, LogoutView):
 
     def get_redirect_url(self):
-        return redirect(settings.LOGOUT_REDIRECT_URL)
+        return redirect('login')
