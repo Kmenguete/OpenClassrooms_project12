@@ -23,6 +23,5 @@ class LoginViewSet(viewsets.ViewSet):
 
 class LogoutViewSet(viewsets.ViewSet, LogoutView):
 
-    def get_default_redirect_url(self):
-        if self.request.user:
-            return redirect(settings.LOGOUT_REDIRECT_URL)
+    def get_redirect_url(self):
+        return redirect(settings.LOGOUT_REDIRECT_URL)
