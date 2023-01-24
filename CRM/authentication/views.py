@@ -23,5 +23,5 @@ class LoginViewSet(viewsets.ViewSet):
 
 class SignOutView(LogoutView):
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return redirect(settings.LOGOUT_REDIRECT_URL)

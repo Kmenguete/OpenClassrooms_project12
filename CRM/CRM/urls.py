@@ -33,7 +33,7 @@ router.register('event', event.views.EventViewSet, basename='event')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("logout/", authentication.views.SignOutView.as_view(), name="logout"),
     path('', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path("logout/", authentication.views.SignOutView.as_view(), name="logout"),
 ]
