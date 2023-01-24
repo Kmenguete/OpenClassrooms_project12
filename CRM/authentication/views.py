@@ -26,5 +26,5 @@ class LogoutViewSet(viewsets.ViewSet):
     serializer_class = UserSerializer
 
     def user_logout(self):
-        logout(self.request)
+        logout(self.request.user)
         return redirect(settings.LOGOUT_REDIRECT_URL)
