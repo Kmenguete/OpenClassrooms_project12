@@ -146,3 +146,5 @@ REST_FRAMEWORK = {
 }
 
 LOGIN_REDIRECT_URL = "/api/user/"
+
+LOGOUT_REDIRECT_URL = "/login/"
