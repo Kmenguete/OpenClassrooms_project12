@@ -35,4 +35,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    path("logout/", authentication.views.SignOutView.as_view(), name="logout"),
 ]
