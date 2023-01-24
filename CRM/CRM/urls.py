@@ -35,5 +35,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('logout/', authentication.views.logout_view),
 ]
