@@ -1,6 +1,3 @@
-from django.conf import settings
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 from rest_framework import viewsets
 from .authentication import MyAuthentication
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -19,8 +16,3 @@ class UserViewSet(ReadOnlyModelViewSet):
 
 class LoginViewSet(viewsets.ViewSet):
     authentication_classes = [MyAuthentication]
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('%s?next=%s' % (settings.LOGOUT_REDIRECT_URL, request.path))
