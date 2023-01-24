@@ -5,8 +5,8 @@ from .models import CustomUser
 
 class MyAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        email = request.data.get('email', None)
-        password = request.data.get('password', None)
+        email = request.META.get('email', None)
+        password = request.META.get('password', None)
         try:
             user = CustomUser.objects.get(email=email)
             if not email or not password:
