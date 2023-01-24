@@ -21,10 +21,6 @@ class LoginViewSet(viewsets.ViewSet):
     authentication_classes = [MyAuthentication]
 
 
-class LogoutViewSet(viewsets.ViewSet):
-
-    serializer_class = UserSerializer
-
-    def user_logout(self):
-        logout(self.request.user)
-        return redirect(settings.LOGOUT_REDIRECT_URL)
+def logout_view(request):
+    logout(request)
+    return redirect('%s?next=%s' % (settings.LOGOUT_REDIRECT_URL, request.path))
