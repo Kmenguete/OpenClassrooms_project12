@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LogoutView
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from .authentication import MyAuthentication
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
@@ -11,6 +11,11 @@ from CRM import settings
 class UserViewSet(ReadOnlyModelViewSet):
 
     serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['SALES_CONTACT', 'SUPPORT_CONTACT',
+                     'email', 'first_name',
+                     'last_name', 'role',
+                     'is_staff', 'date_joined']
 
     def get_queryset(self):
         return CustomUser.objects.all()

@@ -1,3 +1,4 @@
+from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
@@ -10,6 +11,9 @@ class EventViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     http_method_names = ["get", "post", "put"]
     serializer_class = EventSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['client', 'date_created',
+                     'support_contact', 'attendees', 'event_date']
 
     def get_queryset(self):
         user = self.request.user

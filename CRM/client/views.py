@@ -1,3 +1,4 @@
+from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -10,6 +11,9 @@ class ClientViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post", "put"]
     serializer_class = ClientSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['first_name', 'last_name',
+                     'email', 'company_name', 'date_created']
 
     def get_queryset(self):
 
