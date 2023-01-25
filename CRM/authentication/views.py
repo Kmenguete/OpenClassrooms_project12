@@ -12,7 +12,7 @@ class UserViewSet(ReadOnlyModelViewSet):
 
     serializer_class = UserSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['SALES_CONTACT', 'SUPPORT_CONTACT',
+    search_fields = ['role', 'groups',
                      'email', 'first_name',
                      'last_name', 'role',
                      'is_staff', 'date_joined']
