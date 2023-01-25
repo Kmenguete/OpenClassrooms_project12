@@ -12,7 +12,9 @@ class ClientViewSet(ModelViewSet):
     serializer_class = ClientSerializer
 
     def get_queryset(self):
-        return Client.objects.all()
+
+        user = self.request.user
+        return Client.objects.filter(sales_contact=user)
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True

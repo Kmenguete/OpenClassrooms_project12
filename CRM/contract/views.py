@@ -11,7 +11,8 @@ class ContractViewSet(ModelViewSet):
     serializer_class = ContractSerializer
 
     def get_queryset(self):
-        return Contract.objects.all()
+        user = self.request.user
+        return Contract.objects.filter(sales_contact=user)
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True

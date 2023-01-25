@@ -12,7 +12,8 @@ class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
 
     def get_queryset(self):
-        return Event.objects.all()
+        user = self.request.user
+        return Event.objects.filter(support_contact=user)
 
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
