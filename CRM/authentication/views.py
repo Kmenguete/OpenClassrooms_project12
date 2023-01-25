@@ -1,5 +1,4 @@
 from django.contrib.auth.views import LogoutView
-from django.shortcuts import redirect
 from rest_framework import viewsets
 from .authentication import MyAuthentication
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -24,4 +23,4 @@ class LoginViewSet(viewsets.ViewSet):
 class SignOutView(LogoutView):
 
     def get_success_url(self):
-        return redirect(settings.LOGOUT_REDIRECT_URL)
+        return settings.LOGOUT_REDIRECT_URL
