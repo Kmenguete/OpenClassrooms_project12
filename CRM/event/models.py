@@ -14,3 +14,6 @@ class Event(models.Model):
     attendees = models.IntegerField()
     event_date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField()
+
+    def __str__(self):
+        return "Event N°" + str(self.pk)

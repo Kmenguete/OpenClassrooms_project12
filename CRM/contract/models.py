@@ -12,3 +12,6 @@ class Contract(models.Model):
     status = models.BooleanField(default=True, blank=True)
     amount = models.FloatField()
     payment_due = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Contract N°" + str(self.pk)

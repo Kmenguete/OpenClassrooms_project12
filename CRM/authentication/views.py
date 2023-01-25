@@ -12,10 +12,8 @@ class UserViewSet(ReadOnlyModelViewSet):
 
     serializer_class = UserSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['role', 'groups',
-                     'email', 'first_name',
-                     'last_name', 'role',
-                     'is_staff', 'date_joined']
+    search_fields = ['role', 'email',
+                     'first_name', 'last_name', 'date_joined']
 
     def get_queryset(self):
         return CustomUser.objects.all()
