@@ -1,7 +1,7 @@
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Contract
 from .serializers import ContractSerializer
 
@@ -10,8 +10,11 @@ class ContractViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     http_method_names = ["get", "post", "put"]
     serializer_class = ContractSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['client', 'date_created', 'amount', 'payment_due']
     search_fields = ['client', 'date_created', 'amount', 'payment_due']
+    ordering_fields = ['id', 'date_created', 'amount', 'payment_due']
+    ordering = ['id']
 
     def get_queryset(self):
         user = self.request.user
