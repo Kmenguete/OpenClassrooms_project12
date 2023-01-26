@@ -2,7 +2,7 @@ from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
 from .serializers import EventSerializer
 
@@ -11,9 +11,14 @@ class EventViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     http_method_names = ["get", "post", "put"]
     serializer_class = EventSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['client', 'date_created',
+                        'attendees', 'event_date']
     search_fields = ['client', 'date_created',
-                     'support_contact', 'attendees', 'event_date']
+                     'attendees', 'event_date']
+    ordering_fields = ['id', 'client', 'date_created',
+                       'attendees', 'event_date']
+    ordering = ['id']
 
     def get_queryset(self):
         user = self.request.user
