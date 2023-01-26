@@ -14,8 +14,8 @@ class ClientViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['first_name', 'last_name',
                         'email', 'company_name', 'date_created']
-    search_fields = ['first_name', 'last_name',
-                     'email', 'company_name', 'date_created']
+    search_fields = ['^first_name', '^last_name',
+                     '^email', '^company_name', 'date_created']
     ordering_fields = ['id', 'first_name', 'last_name',
                        'email', 'company_name', 'date_created']
     ordering = ['id']
