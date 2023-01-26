@@ -5,10 +5,11 @@ from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
 from .serializers import EventSerializer
+from .permissions import IsSalesContact
 
 
 class EventViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post", "put"]
     serializer_class = EventSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]

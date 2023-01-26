@@ -4,10 +4,11 @@ from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Contract
 from .serializers import ContractSerializer
+from .permissions import IsSalesContact
 
 
 class ContractViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post", "put"]
     serializer_class = ContractSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
