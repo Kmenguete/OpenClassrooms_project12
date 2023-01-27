@@ -1,4 +1,5 @@
 from rest_framework import filters
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -25,9 +26,12 @@ class ClientViewSet(ModelViewSet):
         return Client.objects.filter(sales_contact=user)
 
     def create(self, request, *args, **kwargs):
-        request.POST._mutable = True
-        request.data["sales_contact"] = request.user.pk
-        request.POST._mutable = False
+        if request.user.role != "Sales Contact":
+            raise PermissionDenied
+        else:
+            request.POST._mutable = True
+            request.data["sales_contact"] = request.user.pk
+            request.POST._mutable = False
         return super(ClientViewSet, self).create(request, *args, **kwargs)
 
     def perform_update(self, serializer):
