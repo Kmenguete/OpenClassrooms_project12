@@ -34,5 +34,11 @@ class ClientViewSet(ModelViewSet):
             request.POST._mutable = False
         return super(ClientViewSet, self).create(request, *args, **kwargs)
 
-    def perform_update(self, serializer):
-        serializer.save(sales_contact=self.request.user)
+    def update(self, request, *args, **kwargs):
+        if request.user.role != "Sales Contact":
+            raise PermissionDenied
+        else:
+            request.PUT._mutable = True
+            request.data["sales_contact"] = request.user.pk
+            request.PUT._mutable = False
+        return super(ClientViewSet, self).create(request, *args, **kwargs)
