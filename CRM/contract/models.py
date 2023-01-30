@@ -14,4 +14,4 @@ class Contract(models.Model):
     payment_due = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Contract N°" + str(self.pk)
+        return "Contract N°" + str(self.pk) + " " + str(self.amount) + "€"
