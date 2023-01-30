@@ -3,16 +3,35 @@ from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from .models import Event
 from client.models import Client
 
+from authentication.models import CustomUser
 
-class CustomForeignKey(PrimaryKeyRelatedField):
+from contract.models import Contract
+
+
+class ClientForeignKey(PrimaryKeyRelatedField):
 
     def get_queryset(self):
         user = self.context["request"].user
         return Client.objects.filter(sales_contact=user)
 
 
+class ContractForeignKey(PrimaryKeyRelatedField):
+
+    def get_queryset(self):
+        user = self.context["request"].user
+        return Contract.objects.filter(sales_contact=user)
+
+
+class SupportContactForeignKey(PrimaryKeyRelatedField):
+
+    def get_queryset(self):
+        return CustomUser.objects.filter(role="Support Contact")
+
+
 class EventSerializer(ModelSerializer):
-    client = CustomForeignKey()
+    client = ClientForeignKey()
+    event_status = ContractForeignKey()
+    support_contact = SupportContactForeignKey()
 
     class Meta:
         model = Event
