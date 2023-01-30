@@ -31,6 +31,9 @@ class ContractViewSet(ModelViewSet):
             request.POST._mutable = False
         return super(ContractViewSet, self).create(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        serializer.save(sales_contact=self.request.user)
+
     def perform_update(self, serializer):
         if self.request.user.role != "Sales Contact":
             raise PermissionDenied
