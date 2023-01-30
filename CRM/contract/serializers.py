@@ -1,9 +1,18 @@
+from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer
-
 from .models import Contract
+from client.models import Client
+
+
+class CustomForeignKey(PrimaryKeyRelatedField):
+
+    def get_queryset(self):
+        user = self.context["request"].user
+        return Client.objects.filter(sales_contact=user)
 
 
 class ContractSerializer(ModelSerializer):
+    client = CustomForeignKey()
 
     class Meta:
         model = Contract
