@@ -32,4 +32,4 @@ class EventViewSet(ModelViewSet):
             return super(EventViewSet, self).create(request, *args, **kwargs)
 
     def perform_update(self, serializer):
-        serializer.save(sales_contact=self.request.user)
+        serializer.save(support_contact=self.request.user)
