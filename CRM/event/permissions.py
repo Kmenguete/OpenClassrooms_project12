@@ -15,9 +15,7 @@ class IsSalesContact(BasePermission):
 class IsSupportContact(BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        elif request.method in ('PUT',):
+        if request.method in ('PUT',):
             return True
         else:
-            return obj.support_contact != request.user
+            return obj.support_contact == request.user
