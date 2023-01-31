@@ -23,7 +23,10 @@ class ClientViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Client.objects.filter(sales_contact=user)
+        if user.role == "Sales Contact":
+            return Client.objects.filter(sales_contact=user)
+        else:
+            return Client.objects.all()
 
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
