@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Client
 from .permissions import IsSalesContact
 from .serializers import ClientSerializer
+from event.models import Event
 
 
 class ClientViewSet(ModelViewSet):
@@ -26,7 +27,8 @@ class ClientViewSet(ModelViewSet):
         if user.role == "Sales Contact":
             return Client.objects.filter(sales_contact=user)
         else:
-            return Client.objects.all()
+            clients = get_clients_for_support_contact(user)
+            return clients
 
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
@@ -42,3 +44,11 @@ class ClientViewSet(ModelViewSet):
             raise PermissionDenied
         else:
             serializer.save(sales_contact=self.request.user)
+
+
+def get_clients_for_support_contact(user):
+    clients = Event.objects.filter(support_contact=user).values("client")
+    clients_to_get = [clients]
+    for client in clients_to_get:
+        clients = Client.objects.filter(id__in=client)
+        return clients
