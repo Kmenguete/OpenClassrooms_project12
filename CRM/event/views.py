@@ -5,11 +5,11 @@ from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
 from .serializers import EventSerializer
-from .permissions import IsSalesContact, IsSupportContact
+from .permissions import IsSupportContact
 
 
 class EventViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsSalesContact, IsSupportContact]
+    permission_classes = [IsAuthenticated, IsSupportContact]
     http_method_names = ["get", "post", "put"]
     serializer_class = EventSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -22,8 +22,7 @@ class EventViewSet(ModelViewSet):
     ordering = ['id']
 
     def get_queryset(self):
-        user = self.request.user
-        return Event.objects.filter(support_contact=user)
+        return Event.objects.all()
 
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
