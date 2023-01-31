@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Contract
 from .serializers import ContractSerializer
 from .permissions import IsSalesContact
+from event.models import Event
 
 
 class ContractViewSet(ModelViewSet):
@@ -23,7 +24,8 @@ class ContractViewSet(ModelViewSet):
         if user.role == "Sales Contact":
             return Contract.objects.filter(sales_contact=user)
         else:
-            return Contract.objects.all()
+            contracts = get_contracts_for_support_contact(user)
+            return contracts
 
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
@@ -42,3 +44,11 @@ class ContractViewSet(ModelViewSet):
             raise PermissionDenied
         else:
             serializer.save(sales_contact=self.request.user)
+
+
+def get_contracts_for_support_contact(user):
+    contracts = Event.objects.filter(support_contact=user).values("event_status")
+    contracts_to_get = [contracts]
+    for contract in contracts_to_get:
+        contracts = Contract.objects.filter(id__in=contract)
+        return contracts
