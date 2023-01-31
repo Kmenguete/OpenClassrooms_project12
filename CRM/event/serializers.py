@@ -39,3 +39,14 @@ class EventSerializer(ModelSerializer):
                   "date_created", "date_updated",
                   "support_contact", "event_status",
                   "attendees", "event_date", "notes"]
+
+
+class SupportEventSerializer(ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ["id", "client",
+                  "date_created", "date_updated",
+                  "support_contact", "event_status",
+                  "attendees", "event_date", "notes"]
+        read_only_fields = ["client", "support_contact", "event_status"]

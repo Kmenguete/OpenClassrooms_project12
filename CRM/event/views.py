@@ -4,13 +4,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
-from .serializers import EventSerializer
-from .permissions import IsSupportContact
+from .permissions import IsSalesContact, IsSupportContact
+from .serializers import EventSerializer, SupportEventSerializer
 
 
 class EventViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsSupportContact]
-    http_method_names = ["get", "post", "put"]
+    permission_classes = [IsAuthenticated, IsSalesContact]
+    http_method_names = ["get", "post"]
     serializer_class = EventSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['client', 'date_created',
@@ -33,5 +33,28 @@ class EventViewSet(ModelViewSet):
         else:
             return super(EventViewSet, self).create(request, *args, **kwargs)
 
-    def perform_update(self, serializer):
-        serializer.save(support_contact=self.request.user)
+
+class SupportEventViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated, IsSupportContact]
+    http_method_names = ["get", "put"]
+    serializer_class = SupportEventSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['client', 'date_created',
+                        'attendees', 'event_date']
+    search_fields = ['client', 'date_created',
+                     'attendees', 'event_date']
+    ordering_fields = ['id', 'client', 'date_created',
+                       'attendees', 'event_date']
+    ordering = ['id']
+
+    def get_queryset(self):
+        if self.request.user.role == "Sales Contact":
+            return Event.objects.all()
+        else:
+            return Event.objects.filter(support_contact=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        if request.user.role != "Support Contact":
+            raise PermissionDenied
+        else:
+            return super(SupportEventViewSet, self).update(request, *args, **kwargs)

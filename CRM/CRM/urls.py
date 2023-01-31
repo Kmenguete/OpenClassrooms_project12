@@ -30,6 +30,7 @@ router.register('user', authentication.views.UserViewSet, basename='user')
 router.register('client', client.views.ClientViewSet, basename='client')
 router.register('contract', contract.views.ContractViewSet, basename='contract')
 router.register('event', event.views.EventViewSet, basename='event')
+router.register('support-event', event.views.SupportEventViewSet, basename='support-event')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -12,7 +12,7 @@ class Event(models.Model):
     support_contact = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event_status = models.ForeignKey(to=Contract, on_delete=models.CASCADE)
     attendees = models.IntegerField()
-    event_date = models.DateTimeField(auto_now_add=True)
+    event_date = models.DateTimeField()
     notes = models.TextField()
 
     def __str__(self):
