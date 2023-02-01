@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
 from .permissions import IsSalesContact, IsSupportContact
 from .serializers import EventSerializer, SupportEventSerializer
+from client.models import Client
 
 
 class EventViewSet(ModelViewSet):
@@ -23,7 +24,9 @@ class EventViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.role == "Sales Contact":
-            return Event.objects.all()
+            user = self.request.user
+            events = get_event_for_sales_contact(user)
+            return events
         else:
             return Event.objects.filter(support_contact=self.request.user)
 
@@ -49,7 +52,9 @@ class SupportEventViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.role == "Sales Contact":
-            return Event.objects.all()
+            user = self.request.user
+            events = get_event_for_sales_contact(user)
+            return events
         else:
             return Event.objects.filter(support_contact=self.request.user)
 
@@ -58,3 +63,11 @@ class SupportEventViewSet(ModelViewSet):
             raise PermissionDenied
         else:
             return super(SupportEventViewSet, self).update(request, *args, **kwargs)
+
+
+def get_event_for_sales_contact(user):
+    clients = Client.objects.filter(sales_contact=user)
+    events_to_get = [clients]
+    for client in events_to_get:
+        events = Event.objects.filter(client__id__in=client)
+        return events
