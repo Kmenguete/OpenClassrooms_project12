@@ -1,16 +1,20 @@
+from datetime import datetime
+
+import pytz
 from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Event
-from .permissions import IsSalesContact, IsSupportContact, PastDate
+from .permissions import IsSalesContact, IsSupportContact
 from .serializers import EventSerializer, SupportEventSerializer
 from client.models import Client
 
 
 class EventViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsSalesContact, PastDate]
+    permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post"]
     serializer_class = EventSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -38,7 +42,7 @@ class EventViewSet(ModelViewSet):
 
 
 class SupportEventViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsSupportContact, PastDate]
+    permission_classes = [IsAuthenticated, IsSupportContact]
     http_method_names = ["get", "put"]
     serializer_class = SupportEventSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -59,8 +63,12 @@ class SupportEventViewSet(ModelViewSet):
             return Event.objects.filter(support_contact=self.request.user)
 
     def update(self, request, *args, **kwargs):
+        obj = get_object_or_404(Event, id=self.kwargs["pk"])
         if request.user.role != "Support Contact":
             raise PermissionDenied
+        elif datetime.strptime(str(obj.event_date),
+                               "%Y-%m-%d %H:%M:%S%f%z") < datetime.now().replace(tzinfo=pytz.UTC):
+            raise PermissionDenied("An event cannot take place on a past date.")
         else:
             return super(SupportEventViewSet, self).update(request, *args, **kwargs)
 
