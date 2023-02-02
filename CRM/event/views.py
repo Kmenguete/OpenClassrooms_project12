@@ -1,9 +1,6 @@
 from datetime import datetime
-
-import pytz
 from rest_framework import filters
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -37,8 +34,11 @@ class EventViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
             raise PermissionDenied
+        elif datetime.strptime(str(request.data["event_date"]),
+                               "%Y-%m-%dT%H:%M") <= datetime.now():
+            raise PermissionDenied("An event cannot take place on a past date.")
         else:
-            return super(EventViewSet, self).create(request, *args, **kwargs)
+            return super(EventViewSet, self).update(request, *args, **kwargs)
 
 
 class SupportEventViewSet(ModelViewSet):
@@ -63,11 +63,10 @@ class SupportEventViewSet(ModelViewSet):
             return Event.objects.filter(support_contact=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        obj = get_object_or_404(Event, id=self.kwargs["pk"])
         if request.user.role != "Support Contact":
             raise PermissionDenied
-        elif datetime.strptime(str(obj.event_date),
-                               "%Y-%m-%d %H:%M:%S%f%z") < datetime.now().replace(tzinfo=pytz.UTC):
+        elif datetime.strptime(str(request.data["event_date"]),
+                               "%Y-%m-%dT%H:%M") <= datetime.now():
             raise PermissionDenied("An event cannot take place on a past date.")
         else:
             return super(SupportEventViewSet, self).update(request, *args, **kwargs)
