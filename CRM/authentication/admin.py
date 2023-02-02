@@ -25,6 +25,16 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email', 'first_name', 'last_name', 'role',)
     ordering = ('email', 'first_name', 'last_name', 'role',)
 
+    def save_model(self, request, obj, form, change):
+        sales_team = Group.objects.get(name="Sales team")
+        support_team = Group.objects.get(name="Support team")
+        if obj.role == "Sales Contact":
+            super().save_model(request, obj, form, change)
+            obj.groups.add(sales_team)
+        elif obj.role == "Support Contact":
+            super().save_model(request, obj, form, change)
+            obj.groups.add(support_team)
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
