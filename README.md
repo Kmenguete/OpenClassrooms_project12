@@ -30,3 +30,9 @@ that will use the CRM and grant them permissions according their role(sales cont
 or support contact). The admin users has also to manage the entire CRM by creating,
 reading, updating and deleting(CRUD) every user and data in the CRM.
 ***
+#### 2. The sales contact users
+***
+The role of the sales contact is to find new clients and add them to the CRM. If the
+client wish to organize an event, the sales contact can create a contract associated
+to this client and create an event associated to the contract and the client.
+***
