@@ -48,3 +48,8 @@ have then, the possibility to contact the client and interact with them to organ
 and manage the event. According to the evolution of the event, the support contact user
 will have the possibility to update the event until it ends.
 ***
+## 2. Prerequisites
+***
+For this project, Django 4.1.5, Django Rest Framework 3.14.0, GitHub and Python 3.10
+are required.
+***
