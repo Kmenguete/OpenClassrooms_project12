@@ -10,20 +10,56 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ('email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active',)
-    list_filter = ('email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active',)
+    list_display = (
+        "email",
+        "first_name",
+        "last_name",
+        "role",
+        "is_staff",
+        "is_active",
+    )
+    list_filter = (
+        "email",
+        "first_name",
+        "last_name",
+        "role",
+        "is_staff",
+        "is_active",
+    )
     fieldsets = (
-        (None, {'fields': ('email', 'first_name', 'last_name', 'role', 'password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        (None, {"fields": ("email", "first_name", "last_name", "role", "password")}),
+        ("Permissions", {"fields": ("is_staff", "is_active")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'first_name', 'last_name', 'role', 'password1', 'password2', 'is_staff', 'is_active')}
-         ),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "role",
+                    "password1",
+                    "password2",
+                    "is_staff",
+                    "is_active",
+                ),
+            },
+        ),
     )
-    search_fields = ('email', 'first_name', 'last_name', 'role',)
-    ordering = ('email', 'first_name', 'last_name', 'role',)
+    search_fields = (
+        "email",
+        "first_name",
+        "last_name",
+        "role",
+    )
+    ordering = (
+        "email",
+        "first_name",
+        "last_name",
+        "role",
+    )
 
     def save_model(self, request, obj, form, change):
         sales_team = Group.objects.get(name="Sales team")
@@ -47,7 +83,7 @@ class GroupAdmin(admin.ModelAdmin):
     # Use our custom form.
     form = GroupAdminForm
     # Filter permissions horizontal as well.
-    filter_horizontal = ['permissions']
+    filter_horizontal = ["permissions"]
 
 
 # Register the new Group ModelAdmin.

@@ -14,14 +14,15 @@ class EventViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, IsSalesContact]
     http_method_names = ["get", "post"]
     serializer_class = EventSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['client', 'date_created',
-                        'attendees', 'event_date']
-    search_fields = ['client', 'date_created',
-                     'attendees', 'event_date']
-    ordering_fields = ['id', 'client', 'date_created',
-                       'attendees', 'event_date']
-    ordering = ['id']
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = ["client", "date_created", "attendees", "event_date"]
+    search_fields = ["client", "date_created", "attendees", "event_date"]
+    ordering_fields = ["id", "client", "date_created", "attendees", "event_date"]
+    ordering = ["id"]
 
     def get_queryset(self):
         if self.request.user.role == "Sales Contact":
@@ -34,8 +35,10 @@ class EventViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         if request.user.role != "Sales Contact":
             raise PermissionDenied
-        elif datetime.strptime(str(request.data["event_date"]),
-                               "%Y-%m-%dT%H:%M") <= datetime.now():
+        elif (
+            datetime.strptime(str(request.data["event_date"]), "%Y-%m-%dT%H:%M")
+            <= datetime.now()
+        ):
             raise PermissionDenied("An event cannot take place on a past date.")
         else:
             return super(EventViewSet, self).update(request, *args, **kwargs)
@@ -45,14 +48,15 @@ class SupportEventViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, IsSupportContact]
     http_method_names = ["get", "put"]
     serializer_class = SupportEventSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['client', 'date_created',
-                        'attendees', 'event_date']
-    search_fields = ['client', 'date_created',
-                     'attendees', 'event_date']
-    ordering_fields = ['id', 'client', 'date_created',
-                       'attendees', 'event_date']
-    ordering = ['id']
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = ["client", "date_created", "attendees", "event_date"]
+    search_fields = ["client", "date_created", "attendees", "event_date"]
+    ordering_fields = ["id", "client", "date_created", "attendees", "event_date"]
+    ordering = ["id"]
 
     def get_queryset(self):
         if self.request.user.role == "Sales Contact":
@@ -65,8 +69,10 @@ class SupportEventViewSet(ModelViewSet):
     def update(self, request, *args, **kwargs):
         if request.user.role != "Support Contact":
             raise PermissionDenied
-        elif datetime.strptime(str(request.data["event_date"]),
-                               "%Y-%m-%dT%H:%M") <= datetime.now():
+        elif (
+            datetime.strptime(str(request.data["event_date"]), "%Y-%m-%dT%H:%M")
+            <= datetime.now()
+        ):
             raise PermissionDenied("An event cannot take place on a past date.")
         else:
             return super(SupportEventViewSet, self).update(request, *args, **kwargs)

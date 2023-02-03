@@ -25,16 +25,18 @@ import event.views
 
 router = routers.SimpleRouter()
 
-router.register('login', authentication.views.LoginViewSet, basename='login')
-router.register('user', authentication.views.UserViewSet, basename='user')
-router.register('client', client.views.ClientViewSet, basename='client')
-router.register('contract', contract.views.ContractViewSet, basename='contract')
-router.register('event', event.views.EventViewSet, basename='event')
-router.register('support-event', event.views.SupportEventViewSet, basename='support-event')
+router.register("login", authentication.views.LoginViewSet, basename="login")
+router.register("user", authentication.views.UserViewSet, basename="user")
+router.register("client", client.views.ClientViewSet, basename="client")
+router.register("contract", contract.views.ContractViewSet, basename="contract")
+router.register("event", event.views.EventViewSet, basename="event")
+router.register(
+    "support-event", event.views.SupportEventViewSet, basename="support-event"
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("logout/", authentication.views.SignOutView.as_view(), name="logout"),
-    path('', include('rest_framework.urls')),
-    path('api/', include(router.urls)),
+    path("", include("rest_framework.urls")),
+    path("api/", include(router.urls)),
 ]

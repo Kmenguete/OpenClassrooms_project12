@@ -11,7 +11,9 @@ class Client(models.Model):
     company_name = models.CharField(max_length=128)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=True)
-    sales_contact = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    sales_contact = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return "Client " + str(self.company_name)
