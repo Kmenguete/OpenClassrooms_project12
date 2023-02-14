@@ -71,4 +71,6 @@ run the following command: pip install -r requirements.txt.
 Once you have successfully installed Django and Django Rest Framework, you can 
 clone the project by using git clone or git pull with the following address:
 https://github.com/Kmenguete/OpenClassrooms_project12.git. When you pulled the
-project in your local machine, you can start improving this CRM ;).
+project in your local machine, you can start improving this CRM ;). If you are 
+a frontend developer and want to work with the API of the CRM see the following 
+link: https://documenter.getpostman.com/view/23193108/2s935vn1Df
